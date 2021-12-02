@@ -92,8 +92,10 @@ public class DbOperations
         return result;
     }
 
-    public void insertCustomerOrder2()
+    public boolean insertCustomerOrder2(OrderData od)
     {
+        boolean result = true;
+
         try
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -101,24 +103,23 @@ public class DbOperations
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sales_data", "root", "root");
             System.out.println("Connection Established..");
 
-            String date1 = "15/05/2021";
-            //java.util.Date date = new SimpleDateFormat("dd/MM/yyyy").parse(date1);
+            String date1 = "";
+            java.util.Date date =;
             String query2 = "insert into order_details values(?,?,?,?)";
-            PreparedStatement pst2 = con.prepareStatement(query2);
-            pst2.setInt(1, 3013);
-            pst2.setInt(2, 3000);
-            pst2.setDate(3, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(date1).getTime()));
-            pst2.setInt(4, 2008);
+            PreparedStatement pst = con.prepareStatement(query2);
+            pst.setInt(1, od.getOrder_id());
+            pst.setInt(2, od.getAmount());
+            pst.setDate(3, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(date1).getTime());
+            pst.setInt(4, od.getCustomer_id());
 
-            int res2 = pst2.executeUpdate();
-            if (res2 == 0) {
-                System.out.println("No Record Inserted In Order Details..");
-            } else {
-                System.out.println("Record Inserted In Order Details..");
+            int res = pst.executeUpdate();
+            if (res == 1) {
+                result = true;
             }
         }
         catch(Exception e) {
             System.out.println(e);
         }
+        return result;
     }
 }
