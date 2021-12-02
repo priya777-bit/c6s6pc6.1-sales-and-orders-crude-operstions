@@ -13,12 +13,17 @@ public class SalesDataDml {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        //OrderData od = new OrderData(3013,3000,dt,2010);
-        SalesData sd = new SalesData(1012,"john_kenov","nordic",200);
+        //OrderData od = new OrderData(3014,3000,dt,2010);
+        //SalesData sd = new SalesData(1012,"john_kenov","nordic",200);
         //CustomerData cd = new CustomerData(2010,"samuel","thomas","stockholm",150,1011);
-        boolean result = dbms.insertSales(sd);
+        //boolean result = dbms.insertSales(sd);
         //boolean result1 = dbms.deleteSales(1009);
         //boolean result2 = dbms.insertCustomerOrder(cd);
         //boolean result3 = dbms.insertCustomerOrder2(od);
+
+        OrderData od1 = dbms.getCustomerId(2010);
+        od1.setAmount(3500);
+        od1.setCustomer_id(2010);
+        boolean result4 = dbms.updateOrderAmount(od1);
     }
 }

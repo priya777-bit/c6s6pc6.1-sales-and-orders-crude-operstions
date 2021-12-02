@@ -169,6 +169,7 @@ public class DbOperations
             String query = "update order_details set amount=? where customer_id=?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setInt(1,od.getAmount());
+            pst.setInt(2,od.getCustomer_id());
             int res = pst.executeUpdate();
             if(res==1)
             {
