@@ -5,8 +5,10 @@ import java.text.SimpleDateFormat;
 
 public class DbOperations
 {
-    public void insertSales ()
+    public boolean insertSales (SalesData sd)
     {
+        boolean result = false;
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
@@ -15,27 +17,27 @@ public class DbOperations
 
             String query = "insert into sales_person values(?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(query);
-            pst.setInt(1, 1010);
-            pst.setString(2, "john_kenov");
-            pst.setString(3, "Nordic");
-            pst.setInt(4, 200);
+            pst.setInt(1, sd.getSales_id());
+            pst.setString(2, sd.getFirst_name());
+            pst.setString(3, sd.getCity());
+            pst.setInt(4, sd.getCommission_rate());
 
             int res = pst.executeUpdate();
             System.out.println("Result" + res);
-            if (res == 0)
-                System.out.println("No Record Inserted");
-            else
-                System.out.println("Records Inserted");
-
+            if (res == 1)
+                result=true;
         }
         catch (Exception e)
         {
             System.out.println(e);
         }
+        return result;
     }
 
-    public void deleteSales()
+    public boolean deleteSales(int sales_id)
     {
+        boolean result = false;
+
         try
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -43,25 +45,20 @@ public class DbOperations
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sales_data", "root", "root");
             System.out.println("Connection Established..");
 
-            String first_name="axel_rod";
-            String query = "delete from sales_person where first_name=?";
+            String query = "delete from sales_person where sales_id=?";
             PreparedStatement pst = con.prepareStatement(query);
-            pst.setString(1,first_name);
+            pst.setInt(1,sales_id);
             int rs = pst.executeUpdate();
-            if(rs==0)
+            if(rs==1)
             {
-                System.out.println("Record Not Deleted");
+                result = true;
             }
-            else
-            {
-                System.out.println("Record Deleted");
-            }
-
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
+        return result;
     }
 
     public void insertCustomerOrder()
