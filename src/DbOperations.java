@@ -61,8 +61,10 @@ public class DbOperations
         return result;
     }
 
-    public void insertCustomerOrder()
+    public boolean insertCustomerOrder(CustomerData cd)
     {
+        boolean result = false;
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver Registered ..");
@@ -71,24 +73,23 @@ public class DbOperations
 
             String query = "insert into customer values(?,?,?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(query);
-            pst.setInt(1, 2009);
-            pst.setString(2, "samuel");
-            pst.setString(3, "thomas");
-            pst.setString(4, "stockholm");
-            pst.setInt(5, 150);
-            pst.setInt(6, 1010);
+            pst.setInt(1,cd.getCustomer_id() );
+            pst.setString(2, cd.getName());
+            pst.setString(3, cd.getLast_name());
+            pst.setString(4, cd.getCity());
+            pst.setInt(5, cd.getRating());
+            pst.setInt(6, cd.getSales_id());
 
             int res = pst.executeUpdate();
-            if (res == 0) {
-                System.out.println("Customer Record Not Inserted..");
-            } else {
-                System.out.println("Customer Record Inserted");
+            if (res == 1) {
+               result = true;
             }
         }
         catch (Exception e)
         {
             System.out.println(e);
         }
+        return result;
     }
 
     public void insertCustomerOrder2()
