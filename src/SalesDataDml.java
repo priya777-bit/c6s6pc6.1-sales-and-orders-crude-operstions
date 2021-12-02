@@ -1,13 +1,24 @@
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class SalesDataDml {
     public static void main(String args[]) {
         DbOperations dbms = new DbOperations();
-        OrderData od = new OrderData();
-        // sd.insertSales();
-        //  sd.deleteSales();
-        //sd.insertCustomerOrder();
-        boolean result3 = dbms.insertCustomerOrder2(od);
+        String date ="2021-05-15";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        java.util.Date dt = null;
+        try {
+            dt = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //OrderData od = new OrderData(3013,3000,dt,2010);
+        SalesData sd = new SalesData(1012,"john_kenov","nordic",200);
+        //CustomerData cd = new CustomerData(2010,"samuel","thomas","stockholm",150,1011);
+        boolean result = dbms.insertSales(sd);
+        //boolean result1 = dbms.deleteSales(1009);
+        //boolean result2 = dbms.insertCustomerOrder(cd);
+        //boolean result3 = dbms.insertCustomerOrder2(od);
     }
 }

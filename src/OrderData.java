@@ -53,8 +53,6 @@ public class OrderData
     }
 
     @Override
-
-    @Override
     public String toString() {
         return "OrderData{" +
                 "order_id=" + order_id +
