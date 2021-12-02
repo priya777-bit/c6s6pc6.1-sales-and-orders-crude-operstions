@@ -4,9 +4,10 @@ import java.text.SimpleDateFormat;
 public class SalesDataDml {
     public static void main(String args[]) {
         SalesDataDml sd = new SalesDataDml();
-        sd.insertSales();
-        sd.deleteSales();
-        sd.insertCustomerOrder();
+       // sd.insertSales();
+      //  sd.deleteSales();
+        //sd.insertCustomerOrder();
+        sd.insertCustomerOrder2();
     }
     public void insertSales ()
     {
@@ -77,7 +78,7 @@ public class SalesDataDml {
 
             String query = "insert into customer values(?,?,?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(query);
-            pst.setInt(1, 2008);
+            pst.setInt(1, 2009);
             pst.setString(2, "samuel");
             pst.setString(3, "thomas");
             pst.setString(4, "stockholm");
@@ -90,12 +91,27 @@ public class SalesDataDml {
             } else {
                 System.out.println("Customer Record Inserted");
             }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+
+    public void insertCustomerOrder2()
+    {
+        try
+        {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Driver Registered ..");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sales_data", "root", "root");
+            System.out.println("Connection Established..");
 
             String date1 = "15/05/2021";
             //java.util.Date date = new SimpleDateFormat("dd/MM/yyyy").parse(date1);
             String query2 = "insert into order_details values(?,?,?,?)";
             PreparedStatement pst2 = con.prepareStatement(query2);
-            pst2.setInt(1, 3012);
+            pst2.setInt(1, 3013);
             pst2.setInt(2, 3000);
             pst2.setDate(3, new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(date1).getTime()));
             pst2.setInt(4, 2008);
@@ -107,8 +123,7 @@ public class SalesDataDml {
                 System.out.println("Record Inserted In Order Details..");
             }
         }
-        catch (Exception e)
-        {
+        catch(Exception e) {
             System.out.println(e);
         }
     }
